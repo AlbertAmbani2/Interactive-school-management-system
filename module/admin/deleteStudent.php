@@ -14,7 +14,6 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM students;";
 $stmt = mysqli_prepare($conn, $sql);
 
-
 if ($stmt === false) {
     die("Error in SQL query: " . mysqli_error($conn));
 }

@@ -1,11 +1,32 @@
 <?php
 include_once('../../service/mysqlcon.php');
+
 $check=$_SESSION['login_id'];
-$session=mysql_query("SELECT name  FROM admin WHERE id='$check' ");
-$row=mysql_fetch_array($session);
-$login_session = $loged_user_name = $row['name'];
-if(!isset($login_session)){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Use prepared statement to prevent SQL injection
+$stmt = $conn->prepare("SELECT name FROM admin WHERE id=?");
+$stmt->bind_param("s", $check);
+$stmt->execute();
+
+$stmt->bind_result($loged_user_name);
+$stmt->fetch();
+$stmt->close();
+
+// Close the database connection
+$conn->close();
+
+// Check if the user is not logged in
+if (!isset($loged_user_name)) {
     header("Location:../../");
+    exit(); 
 }
 ?>
 <html>
@@ -84,7 +105,16 @@ if(!isset($login_session)){
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
-if(!empty($_POST['submit'])){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_POST['submit'])) {
     $id = $_POST['id'];
     $password = $_POST['password'];
     $fathername = $_POST['fathername'];
@@ -92,13 +122,45 @@ if(!empty($_POST['submit'])){
     $fatherphone = $_POST['fatherphone'];
     $motherphone = $_POST['motherphone'];
     $address = $_POST['address'];
-    $sql = "INSERT INTO parents VALUES('$id','$password','$fathername','$mothername','$fatherphone','$motherphone','$address')";
-    $success = mysql_query( $sql,$link );
-    if(!$success) {
-        die('Could not enter data: '.mysql_error());
+
+    // Create a prepared statement to prevent SQL injection
+    $sqlParents = "INSERT INTO parents VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmtParents = mysqli_prepare($conn, $sqlParents);
+
+    if ($stmtParents === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
     }
-    $sql = "INSERT INTO users VALUES('$id','$password','parent')";
-    $success = mysql_query( $sql,$link );
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtParents, "sssssss", $id, $password, $fathername, $mothername, $fatherphone, $motherphone, $address);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtParents);
+
+    // Close the statement
+    mysqli_stmt_close($stmtParents);
+
+    // Second prepared statement for users table
+    $sqlUsers = "INSERT INTO users VALUES (?, ?, 'parent')";
+    $stmtUsers = mysqli_prepare($conn, $sqlUsers);
+
+    if ($stmtUsers === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtUsers, "ss", $id, $password);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtUsers);
+
+    // Close the statement
+    mysqli_stmt_close($stmtUsers);
+
     echo "Entered data successfully\n";
 }
+
+// Close the MySQLi connection
+mysqli_close($conn);
 ?>
+

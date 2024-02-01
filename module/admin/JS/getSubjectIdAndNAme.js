@@ -1,4 +1,4 @@
-function getCourseNameAndId(){
+function getSubjectNameAndId(){
 
     var e = document.getElementById("className");
     var classId = e.options[e.selectedIndex].value;
@@ -7,17 +7,17 @@ function getCourseNameAndId(){
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
-            document.getElementById("courseName").innerHTML = xhttp.responseText;
+            document.getElementById("subjectName").innerHTML = xhttp.responseText;
         }
     };
-    xhttp.open("GET", "searchCourseName.php?key="+classId,true);
+    xhttp.open("GET", "searchSubjectName.php?key="+classId,true);
     xhttp.send();
 }
 
-function setCourseId(){
-    var e = document.getElementById("courseName");
+function setSubjectId(){
+    var e = document.getElementById("subjectName");
     var classId = e.options[e.selectedIndex].value;
-    document.getElementById("courseId").value = classId;
+    document.getElementById("subjectId").value = classId;
 
     var xhttp;
     xhttp = new XMLHttpRequest();
@@ -30,17 +30,17 @@ function setCourseId(){
     xhttp.send();
 }
 
-function getAllCourseStudentAndSubmit(){
-    var e = document.getElementById("courseName");
-    var courseId = e.options[e.selectedIndex].value;
-    var e = document.getElementById("courseName");
-    var courseName = e.options[e.selectedIndex].text;
+function getAllSubjectStudentAndSubmit(){
+    var e = document.getElementById("subjectName");
+    var subjectId = e.options[e.selectedIndex].value;
+    var e = document.getElementById("subjectName");
+    var subjectName = e.options[e.selectedIndex].text;
     var e = document.getElementById("className");
     var classId = e.options[e.selectedIndex].value;
     var e = document.getElementById("teacherId");
     var teacherId = e.options[e.selectedIndex].value;
 
-    alert(courseId+' '+courseName + ' '+classId+' '+teacherId);
+    alert(subjectId+' '+subjectName + ' '+classId+' '+teacherId);
     var xhttp;
     xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -48,6 +48,6 @@ function getAllCourseStudentAndSubmit(){
             document.getElementById("teacherId").innerHTML = xhttp.responseText;
         }
     };
-    xhttp.open("GET", "submitStudentCourse.php?courseid="+courseId+"&classid="+classId+"&teacherid="+teacherId+"&coursename="+courseName,true);
+    xhttp.open("GET", "submitStudentsubject.php?subjectid="+subjectId+"&classid="+classId+"&teacherid="+teacherId+"&subjectname="+subjectName,true);
     xhttp.send();
 }

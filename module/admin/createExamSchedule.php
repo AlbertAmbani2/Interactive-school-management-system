@@ -42,15 +42,15 @@ include_once('main.php');
                   </tr>
                   <tr>
                       <td>Exam Date:</td>
-                      <td><input type="text" name="examDate" placeholder="Exam Date(y-m-d)"></td>
+                      <td><input type="date" name="examDate" placeholder="Exam Date"></td>
                   </tr>
                   <tr>
                       <td>Exam Time:</td>
                       <td><input type="text" name="examTime" placeholder="Exam Time(H:M - H:M)"></td>
                   </tr>
                   <tr>
-                      <td>Course ID:</td>
-                      <td><input type="text" name="courseId" placeholder="Course ID"></td>
+                      <td>Subject ID:</td>
+                      <td><input type="text" name="courseId" placeholder="Subject ID"></td>
                   </tr>
                   <tr>
                       <td></td>
@@ -63,16 +63,52 @@ include_once('main.php');
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
-if(!empty($_POST['submit'])){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if(isset($_POST['submit'])){
+    
+     // Validate that required fields are not empty
+     if(empty($_POST['id']) || empty($_POST['examDate']) || empty($_POST['examTime']) || empty($_POST['courseId'])) {
+        die("Error: All fields are required.");
+    }
+
     $id = $_POST['id'];
-    $examDate = $_POST['examDate'];
+    $examDate = date('Y-m-d', strtotime($_POST['examDate'])); // Convert to MySQL-compatible format
     $examTime = $_POST['examTime'];
     $courseId = $_POST['courseId'];
-    $sql = "INSERT INTO examschedule VALUES('$id','$examDate','$examTime','$courseId')";
-    $success = mysql_query( $sql,$link );
-    if(!$success) {
-        die('Could not enter data: '.mysql_error());
+
+    // Create a prepared statement to prevent SQL injection
+    $sql = "INSERT INTO examschedule (id, examDate, examTime, courseId) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if ($stmt === false) {
+        die('Could not prepare statement: ' . mysqli_error($conn));
     }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmt, 'ssss', $id, $examDate, $examTime, $courseId);
+
+    // Execute the prepared statement
+    $success = mysqli_stmt_execute($stmt);
+
+    // Close the statement
+    mysqli_stmt_close($stmt);
+
+    // Close the MySQLi connection
+    mysqli_close($conn);
+
+    if(!$success) {
+        die('Could not enter data: '.mysqli_error($conn));
+    }
+
     echo "Entered data successfully\n";
 }
 ?>
+

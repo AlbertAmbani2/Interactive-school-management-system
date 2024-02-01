@@ -1,11 +1,30 @@
 <?php
 include_once('main.php');
+
 include_once('../../service/mysqlcon.php');
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $sql = "SELECT * FROM teachers;";
-$res= mysql_query($sql);
+$stmt = mysqli_prepare($conn, $sql);
+
+if ($stmt === false) {
+  die("Error in SQL query: " . mysqli_error($conn));
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
 $string = "";
 $images_dir = "../images/";
-while($row = mysql_fetch_array($res)){
+
+while($row =  mysqli_fetch_array($result)){
     $picname = $row['id'];
     $string .= "<form action='deleteTeacherTableData.php' method='post'>".
     "<tr><td><input type='submit' name='submit' value='Delete'></td>".

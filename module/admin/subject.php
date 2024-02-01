@@ -1,11 +1,31 @@
 <?php
 include_once('../../service/mysqlcon.php');
+
 $check=$_SESSION['login_id'];
-$session=mysql_query("SELECT name  FROM admin WHERE id='$check' ");
-$row=mysql_fetch_array($session);
-$login_session = $loged_user_name = $row['name'];
-if(!isset($login_session)){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+// Use prepared statement to prevent SQL injection
+$stmt = $conn->prepare("SELECT name FROM admin WHERE id=?");
+$stmt->bind_param("s", $check);
+$stmt->execute();
+
+$stmt->bind_result($loged_user_name);
+$stmt->fetch();
+$stmt->close();
+
+// Close the database connection
+$conn->close();
+
+// Check if the user is not logged in
+if (!isset($loged_user_name)) {
     header("Location:../../");
+    exit(); 
 }
 ?>
 <html>
@@ -22,9 +42,9 @@ if(!isset($login_session)){
 				<ul>
 				    <li class="manulist">
 						    <a class ="menulista" href="index.php">Home</a>
-                <a class ="menulista" href="addCourse.php">New Course</a>
-                <a class ="menulista" href="viewCourse.php">View Course</a>
-                <a class ="menulista" href="deleteCourse.php">Delete Course</a>
+                <a class ="menulista" href="addSubject.php">New Subject</a>
+                <a class ="menulista" href="viewSubject.php">View Subject</a>
+                <a class ="menulista" href="deleteSubject.php">Delete Subject</a>
 								<div align="center">
 								<h4>Hi!admin <?php echo $check." ";?></h4>
 								<a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>

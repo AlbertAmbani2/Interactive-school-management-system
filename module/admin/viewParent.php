@@ -1,10 +1,28 @@
 <?php
 include_once('main.php');
+
 include_once('../../service/mysqlcon.php');
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $sql = "SELECT * FROM parents;";
-$res= mysql_query($sql);
+$stmt = mysqli_prepare($conn, $sql);
+
+if ($stmt === false) {
+    die("Error in SQL query: " . mysqli_error($conn));
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
 $string = "";
-while($row = mysql_fetch_array($res)){
+while($row = mysqli_fetch_array($result)){
     $string .= '<tr><td>'.$row['id'].'</td><td>'.$row['password'].
     '</td><td>'.$row['fathername'].'</td><td>'.$row['mothername'].
     '</td><td>'.$row['fatherphone'].'</td><td>'.$row['motherphone'].

@@ -125,7 +125,16 @@ if (!isset($loged_user_name)) {
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
-if(!empty($_POST['submit'])){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (isset($_POST['submit'])) {
     $stuId = $_POST['studentId'];
     $stuName = $_POST['studentName'];
     $stuPassword = $_POST['studentPassword'];
@@ -137,16 +146,48 @@ if(!empty($_POST['submit'])){
     $stuAddress = $_POST['studentAddress'];
     $stuParentId = $_POST['studentParentId'];
     $stuClassId = $_POST['studentClassId'];
-    //$filename = $_FILES['file']['name'];
-    $filetmp =$_FILES['file']['tmp_name'];
-    move_uploaded_file($filetmp,"../images/".$stuId.".jpg");
-    $sql = "INSERT INTO students VALUES('$stuId','$stuName','$stuPassword','$stuPhone','$stuEmail','$stugender','$stuDOB','$stuAddmissionDate','$stuAddress','$stuParentId','$stuClassId');";
-    $success = mysql_query($sql);
-    $sql = "INSERT INTO users VALUES('$stuId','$stuPassword','student');";
-    $success = mysql_query($sql);
-    if(!$success) {
-        die('Could not enter data: '.mysql_error());
+
+    // Create a prepared statement to prevent SQL injection
+    $sqlStudents = "INSERT INTO students VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmtStudents = mysqli_prepare($conn, $sqlStudents);
+
+    if ($stmtStudents === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
     }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtStudents, "sssssssssss", $stuId, $stuName, $stuPassword, $stuPhone, $stuEmail, $stugender, $stuDOB, $stuAddmissionDate, $stuAddress, $stuParentId, $stuClassId);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtStudents);
+
+    // Close the statement
+    mysqli_stmt_close($stmtStudents);
+
+    // Second prepared statement for users table
+    $sqlUsers = "INSERT INTO users VALUES (?, ?, 'student')";
+    $stmtUsers = mysqli_prepare($conn, $sqlUsers);
+
+    if ($stmtUsers === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtUsers, "ss", $stuId, $stuPassword);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtUsers);
+
+    // Close the statement
+    mysqli_stmt_close($stmtUsers);
+
+    // Move uploaded file to the images directory
+    $filetmp = $_FILES['file']['tmp_name'];
+    move_uploaded_file($filetmp, "../images/" . $stuId . ".jpg");
+
     echo "Entered data successfully\n";
 }
+
+// Close the MySQLi connection
+mysqli_close($conn);
 ?>

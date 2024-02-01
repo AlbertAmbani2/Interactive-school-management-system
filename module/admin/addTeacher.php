@@ -121,8 +121,16 @@ if (!isset($loged_user_name)) {
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
-if(!empty($_FILES))
-if(!empty($_POST['submit'])){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+if (!empty($_FILES) && isset($_POST['submit'])) {
     $teaId = $_POST['teacherId'];
     $teaName = $_POST['teacherName'];
     $teaPassword = $_POST['teacherPassword'];
@@ -133,17 +141,48 @@ if(!empty($_POST['submit'])){
     $teaHireDate = $_POST['teacherHireDate'];
     $teaAddress = $_POST['teacherAddress'];
     $teaSalary = $_POST['teacherSalary'];
-    //$filename = $_FILES['file']['name'];
-    $filetmp =$_FILES['file']['tmp_name'];
-    //echo $filename;
-    move_uploaded_file($filetmp,"../images/".$teaId.".jpg");
-    $sql = "INSERT INTO teachers VALUES('$teaId','$teaName','$teaPassword','$teaPhone','$teaEmail','$teaAddress','$teaGender','$teaDOB','$teaHireDate','$teaSalary');";
-    $success = mysql_query( $sql,$link );
-    $sql = "INSERT INTO users VALUES('$teaId','$teaPassword','teacher');";
-    $success = mysql_query( $sql,$link );
-    if(!$success) {
-        die('Could not enter data: '.mysql_error());
+
+    // Create a prepared statement to prevent SQL injection
+    $sqlTeachers = "INSERT INTO teachers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmtTeachers = mysqli_prepare($conn, $sqlTeachers);
+
+    if ($stmtTeachers === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
     }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtTeachers, "ssssssssss", $teaId, $teaName, $teaPassword, $teaPhone, $teaEmail, $teaAddress, $teaGender, $teaDOB, $teaHireDate, $teaSalary);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtTeachers);
+
+    // Close the statement
+    mysqli_stmt_close($stmtTeachers);
+
+    // Second prepared statement for users table
+    $sqlUsers = "INSERT INTO users VALUES (?, ?, 'teacher')";
+    $stmtUsers = mysqli_prepare($conn, $sqlUsers);
+
+    if ($stmtUsers === false) {
+        die("Error in SQL query: " . mysqli_error($conn));
+    }
+
+    // Bind parameters
+    mysqli_stmt_bind_param($stmtUsers, "ss", $teaId, $teaPassword);
+
+    // Execute the prepared statement
+    mysqli_stmt_execute($stmtUsers);
+
+    // Close the statement
+    mysqli_stmt_close($stmtUsers);
+
+    // Move uploaded file to the images directory
+    $filetmp = $_FILES['file']['tmp_name'];
+    move_uploaded_file($filetmp, "../images/" . $teaId . ".jpg");
+
     echo "Entered data successfully\n";
 }
+
+// Close the MySQLi connection
+mysqli_close($conn);
 ?>

@@ -14,7 +14,7 @@ if(!empty($_GET)){
     while($row_cnt && $row = mysql_fetch_array($res)){
         print_r($row);
         $studentid = $row['id'];
-        $sql = "INSERT INTO course VALUES('$courseid','$courseName','$teacherid','$studentid','$classid')";
+        $sql = "INSERT INTO subject VALUES('$courseid','$courseName','$teacherid','$studentid','$classid')";
         $success = mysql_query( $sql,$link );
         if(!$success) {
             die('Could not enter data: '.mysql_error());

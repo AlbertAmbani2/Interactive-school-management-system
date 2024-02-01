@@ -2,19 +2,37 @@
 include_once('main.php');
 include_once('../../service/mysqlcon.php');
 
-$sql = "SELECT * FROM examschedule WHERE  MONTH(examdate) = MONTH(CURRENT_DATE) AND YEAR(examdate)=YEAR(CURRENT_DATE)";
-$res= mysql_query($sql);
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Use MySQLi for database operations
+$sql = "SELECT * FROM examschedule WHERE MONTH(examdate) = MONTH(CURRENT_DATE) AND YEAR(examdate) = YEAR(CURRENT_DATE)";
+$result = mysqli_query($conn, $sql);
+
 $string = "<tr>
                <th>ID</th>
                <th>Exam Date</th>
                <th>Time</th>
                <th>Course Id</th>
            </tr>";
-while($row = mysql_fetch_array($res)){
-    $string .= '<tr><td>'.$row['id'].'</td><td>'.$row['examdate'].
-    '</td><td>'.$row['time'].'</td><td>'.$row['courseid'].'</td></tr>';
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $string .= '<tr><td>' . $row['id'] . '</td><td>' . $row['examdate'] .
+        '</td><td>' . $row['time'] . '</td><td>' . $row['courseid'] . '</td></tr>';
 }
+
+// Close the MySQLi result set
+mysqli_free_result($result);
+
+// Close the MySQLi connection
+mysqli_close($conn);
 ?>
+
 <html>
     <head>
 		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">

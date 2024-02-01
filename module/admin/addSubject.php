@@ -1,11 +1,32 @@
 <?php
 include_once('../../service/mysqlcon.php');
+
 $check=$_SESSION['login_id'];
-$session=mysql_query("SELECT name  FROM admin WHERE id='$check' ");
-$row=mysql_fetch_array($session);
-$login_session = $loged_user_name = $row['name'];
-if(!isset($login_session)){
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Use prepared statement to prevent SQL injection
+$stmt = $conn->prepare("SELECT name FROM admin WHERE id=?");
+$stmt->bind_param("s", $check);
+$stmt->execute();
+
+$stmt->bind_result($loged_user_name);
+$stmt->fetch();
+$stmt->close();
+
+// Close the database connection
+$conn->close();
+
+// Check if the user is not logged in
+if (!isset($loged_user_name)) {
     header("Location:../../");
+    exit(); 
 }
 ?>
 <html>
@@ -14,7 +35,7 @@ if(!isset($login_session)){
 				<script src = "JS/login_logout.js"></script>
         <script src = "JS/currentDate.js"></script>
         <script src = "JS/getClassName.js"></script>
-        <script src = "JS/getCourseIdAndNAme.js"></script>
+        <script src = "JS/getSubjectIdAndNAme.js"></script>
 		</head>
     <body onload="getClassNameAndId();">
 			  <div class="header"><h1>School Management System</h1></div>
@@ -29,7 +50,7 @@ if(!isset($login_session)){
                 <a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
 								<a class ="menulista" href="manageParent.php">Manage Parent</a>
 								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="course.php">Course</a>
+								<a class ="menulista" href="subject.php">Subject</a>
 								<a class ="menulista" href="attendance.php">Attendance</a>
 								<a class ="menulista" href="index.php">Exam Schedule</a>
 								<a class ="menulista" href="index.php">Salary</a>
@@ -43,19 +64,20 @@ if(!isset($login_session)){
 				</ul>
 			  <hr/>
         <center>
-            <h2>Course Registration For Student.</h2><hr/>
+                    
+        <h2>Subject Registration For Student.</h2><hr/>
             <form action="#" method="post">
                 <table cellpadding="6">
                     <tr>
                         <td>Class ID:</td>
-                        <td><select id="className" onchange="getCourseNameAndId();"></select></td>
+                        <td><select id="className" onchange="getSubjectNameAndId();"></select></td>
                     </tr>
                     <tr>
-                        <td>Course Name:</td>
-                        <td><select id="courseName" onchange="setCourseId()"></select></td>
+                        <td>Subject Name:</td>
+                        <td><select id="subjectName" onchange="setSubjectId()"></select></td>
                     </tr>
                     <tr>
-                        <td><input id="courseId"type="hidden" name="name" placeholder="Enter Name"></td>
+                        <td><input id="subjectId"type="hidden" name="name" placeholder="Enter Name"></td>
                     </tr>
                     <tr>
                         <td>Teacher ID:</td>
@@ -63,7 +85,7 @@ if(!isset($login_session)){
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="button" name="submit"value="Submit" onclick="getAllCourseStudentAndSubmit();"></td>
+                        <td><input type="button" name="submit"value="Submit" onclick="getAllSubjectStudentAndSubmit();"></td>
                     </tr>
                 </table>
             </form>

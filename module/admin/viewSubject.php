@@ -1,10 +1,28 @@
 <?php
 include_once('main.php');
+
 include_once('../../service/mysqlcon.php');
-$sql = "SELECT * FROM course;";
-$res= mysql_query($sql);
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT * FROM subject;";
+$stmt = mysqli_prepare($conn, $sql);
+
+if ($stmt === false) {
+    die("Error in SQL query: " . mysqli_error($conn));
+}
+
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
 $string = "";
-while($row = mysql_fetch_array($res)){
+while($row = mysqli_fetch_array($result))	{
     $string .= '<tr><td>'.$row['id'].'</td><td>'.$row['name'].
     '</td><td>'.$row['teacherid'].'</td><td>'.$row['studentid'].
     '</td><td>'.$row['classid'].'</td></tr>';
@@ -14,7 +32,7 @@ while($row = mysql_fetch_array($res)){
     <head>
 		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
 				<script src = "JS/login_logout.js"></script>
-        <script src = "JS/searchCourse.js"></script>
+        <script src = "JS/searchSubject.js"></script>
 		</head>
     <body>
 			  <div class="header"><h1>School Management System</h1></div>
@@ -29,7 +47,7 @@ while($row = mysql_fetch_array($res)){
 								<a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
 								<a class ="menulista" href="manageParent.php">Manage Parent</a>
 								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="course.php">Course</a>
+								<a class ="menulista" href="subject.php">Subject</a>
 								<a class ="menulista" href="index.php">Attendance</a>
 								<a class ="menulista" href="index.php">Exam Schedule</a>
 								<a class ="menulista" href="index.php">Salary</a>
@@ -46,14 +64,14 @@ while($row = mysql_fetch_array($res)){
             <table>
                 <tr>
                     <td><b>Search By Id Or Name: </b></td>
-                    <td><input type="text" name="searchId" placeholder="Search By Id Or Name:" onkeyup="getCourse(this.value);"></td>
+                    <td><input type="text" name="searchId" placeholder="Search By Id Or Name:" onkeyup="getSubject(this.value);"></td>
                 </tr>
             </table>
         </center>
         <br/>
-        <center><h2>Course List</h2></center>
+        <center><h2>Subject List</h2></center>
         <center>
-            <table border="1" id='courseList'>
+            <table border="1" id='subjectList'>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
