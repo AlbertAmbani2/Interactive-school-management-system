@@ -1,9 +1,31 @@
 <?php
 include_once('main.php');
 
-$st=mysql_query("SELECT *  FROM students WHERE id='$check' ");
-$stinfo=mysql_fetch_array($st);
+//  student ID 
+$check = $_SESSION['login_id'];
 
+// A connection to the database using MySQLi
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check the connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch student information from the database
+$sql = "SELECT * FROM students WHERE id='$check'";
+$result = $conn->query($sql);
+
+// Check if the query was successful and fetch the student information
+if ($result) {
+    $stinfo = $result->fetch_assoc();
+} else {
+    // Handle the case where the query fails
+    echo "Error: " . $conn->error;
+}
+
+// Close the database connection
+$conn->close();
 ?>
 <html>
     <head>
@@ -55,24 +77,23 @@ $stinfo=mysql_fetch_array($st);
 			  
 			  </tr>
 			  <tr>
-			  
-			  <td><?php echo $stinfo['id'];?></td>
-			  <td><?php echo $stinfo['name'];?></td>
-			  <td><?php echo $stinfo['phone'];?></td>
-			  <td><?php echo $stinfo['email'];?></td>
-			  <td><?php echo $stinfo['sex'];?></td>
-			  <td><?php echo $stinfo['dob'];?></td>
-			  <td><?php echo $stinfo['addmissiondate'];?></td>
-			  <td><?php echo $stinfo['address'];?></td>
-			  <td><?php echo $stinfo['parentid'];?></td>
-			  <td><?php echo $stinfo['classid'];?></td>
-			  <td><img src="../images/<?php echo $check.".jpg";?>" height="95" width="95" alt="<?php echo $check." photo";?> "/></td>
-			  </tr>
+                    <td><?php echo isset($stinfo['id']) ? $stinfo['id'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['name']) ? $stinfo['name'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['phone']) ? $stinfo['phone'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['email']) ? $stinfo['email'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['sex']) ? $stinfo['sex'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['dob']) ? $stinfo['dob'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['addmissiondate']) ? $stinfo['addmissiondate'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['address']) ? $stinfo['address'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['parentid']) ? $stinfo['parentid'] : ''; ?></td>
+                    <td><?php echo isset($stinfo['classid']) ? $stinfo['classid'] : ''; ?></td>
+                    <td><img src="../images/<?php echo $check . ".jpg"; ?>" height="95" width="95" alt="<?php echo $check . " photo"; ?> " /></td>
+                </tr>
 			  
 			  
 			  <table
 								
-								</div>
+							</div>
 		</body>
 </html>
 

@@ -6,22 +6,22 @@ include_once('main.php');
     <head>
 		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
 			<script type="text/javascript" src="jquery-1.12.3.js"></script>
-			<script type="text/javascript" src="studentClassCourse.js"></script>
+			<script type="text/javascript" src="studentClassSubject.js"></script>
 			<script src = "JS/login_logout.js"></script>
 			
 				
 	            
 		</head>
-    <body  onload="ajaxRequestToGetMyCourse();">
+    <body  onload="ajaxRequestToGetMySubject();">
              		 
 			 <?php include('index.php'); ?>
 			 <form action="grade.php" method="POST">
 			  <div align="center" >
-			 Select Class:<select id="myclass" name="myclass" onchange="ajaxRequestToGetMyCourse();">
+			 Select Class:<select id="myclass" name="myclass" onchange="ajaxRequestToGetMySubject();">
 			 <?php  
 
 
-$classget = "SELECT  * FROM class where id in(select DISTINCT classid from course where teacherid='$check')";
+$classget = "SELECT  * FROM class where id in(select DISTINCT classid from subject where teacherid='$check')";
 $res= mysql_query($classget);
 
 while($cln=mysql_fetch_array($res))
@@ -34,7 +34,7 @@ while($cln=mysql_fetch_array($res))
 ?>
 
 </select><br /><br />
-Select Course<select id="mycourse" onchange="ajaxRequestToGetCourseStudent();" name="mycourse">
+Select Subject<select id="mysubject" onchange="ajaxRequestToGetSubjectStudent();" name="mysubject">
 
 </select> <br />
 <br/>

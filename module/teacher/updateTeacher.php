@@ -27,7 +27,8 @@ include_once('main.php');
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
-if(!empty($_POST['submit'])){
+
+if (!empty($_POST['submit'])) {
     $teaId = $_POST['id'];
     $teaName = $_POST['name'];
     $teaPassword = $_POST['password'];
@@ -36,15 +37,41 @@ if(!empty($_POST['submit'])){
     $teagender = $_POST['gender'];
     $teaDOB = $_POST['dob'];
     $teaAddress = $_POST['address'];
-    $sql = "UPDATE teachers SET id='$teaId', name='$teaName', password='$teaPassword', phone='$teaPhone', email='$teaEmail', sex='$teagender', dob='$teaDOB',address='$teaAddress' WHERE id='$teaId'";
-	$sql1="UPDATE users SET password='$teaPassword' where userid='$teaId'";
-	
-    $success = mysql_query( $sql,$link );
-	$success1=mysql_query( $sql1,$link );
-    if(!$success||!$success1) {
-        die('Could not Update data: '.mysql_error());
+
+    // Create connection
+    $conn = new mysqli($host, $username, $password, $db_name);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
+
+    // Use prepared statements to prevent SQL injection
+    $sql = "UPDATE teachers SET name=?, password=?, phone=?, email=?, sex=?, dob=?, address=? WHERE id=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssss", $teaName, $teaPassword, $teaPhone, $teaEmail, $teagender, $teaDOB, $teaAddress, $teaId);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Close the statement
+    $stmt->close();
+
+    // Update the password in the users table
+    $sql1 = "UPDATE users SET password=? WHERE userid=?";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->bind_param("ss", $teaPassword, $teaId);
+
+    // Execute the statement
+    $stmt1->execute();
+
+    // Close the statement
+    $stmt1->close();
+
+    // Close the connection
+    $conn->close();
+
     echo "Update data successfully\n";
-	
 }
 ?>
+

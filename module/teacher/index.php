@@ -18,7 +18,7 @@ include_once('main.php');
 								<a class ="menulista" href="updateTeacher.php">Update Profile</a>
 								<a class ="menulista" href="viewProfile.php">View Profile</a>
 								<a class ="menulista" href="course.php">Students Grade</a>
-								<a class ="menulista" href="courses.php">Courses</a>
+								<a class ="menulista" href="courses.php">Subjects</a>
 								<a class ="menulista" href="attendance.php">Attendance</a>
 								<a class ="menulista" href="exam.php">Exam Schedule</a>
 								<a class ="menulista" href="salary.php">Salary</a>

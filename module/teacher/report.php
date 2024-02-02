@@ -41,20 +41,18 @@ include('main.php');
 			 <form action="reportupdate.php" method="POST">
 			  <div align="center" >
 			 Select Class:<select id="myclass" name="myclass" onchange="ajaxRequestToGetMyCourse();">
+			 
 			 <?php  
 
+$classget = "SELECT  * FROM class WHERE id IN (SELECT DISTINCT classid FROM course WHERE teacherid='$check')";
+$res = mysqli_query($conn, $classget); 
 
-$classget = "SELECT  * FROM class where id in(select DISTINCT classid from course where teacherid='$check')";
-$res= mysql_query($classget);
-
-while($cln=mysql_fetch_array($res))
-{
- echo '<option value="',$cln['id'],'" >',$cln['name'],'</option>';
-   
+while ($cln = mysqli_fetch_array($res)) {
+    echo '<option value="' . $cln['id'] . '" >' . $cln['name'] . '</option>';
 }
 
-
 ?>
+
 
 </select><br /><br />
 Select Course<select id="mycourse" onchange="ajaxRequestToGetCourseStudent();" name="mycourse">

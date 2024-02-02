@@ -5,19 +5,21 @@
 **Recommended PHP Version 5.6.3**
 
 
-**Admin Login Details**
-
+**Admin Login Details*****************************
+                                       *********************************************************8
 Username: ad-123-1
 Password: 123
 
 
-**Student Login Details**
+**Student Login Details****************************************************************************************
 
-Username: st-124-1
-Password: 125
+Username: st-126-1
+Password: @benard
 
-**Teacher Login Details**
 
+
+**Teacher Login Details*********************************************************************8
+      **********************************************************
 Username: te-124-1
 Password: 124
 
@@ -28,5 +30,5 @@ Password: 123
 
 **Parents Login Details**
 
-Username: pa-123-1
+Username: pa-124-1
 Password: 123

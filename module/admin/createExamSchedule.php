@@ -19,7 +19,7 @@ include_once('main.php');
 								<a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
 								<a class ="menulista" href="manageParent.php">Manage Parent</a>
 								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="course.php">Course</a>
+								<a class ="menulista" href="course.php">Subject</a>
 								<a class ="menulista" href="attendance.php">Attendance</a>
 								<a class ="menulista" href="examSchedule.php">Exam Schedule</a>
 								<a class ="menulista" href="salary.php">Salary</a>

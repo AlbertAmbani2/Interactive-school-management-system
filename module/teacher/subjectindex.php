@@ -2,7 +2,7 @@
 include_once('main.php');
 include_once('index.php');
 
-$dept=mysql_query("SELECT name FROM course");
+$dept=mysql_query("SELECT name FROM subject");
 
 
 ?>
@@ -14,7 +14,7 @@ $dept=mysql_query("SELECT name FROM course");
 <center>
 <h1>Please Select Department To Make All Staff Attendance</h1>
 <form action="grade.php" method="post">
-Select Course:<select name="course" selected="selected"><br/>
+Select Subject:<select name="subject" selected="selected"><br/>
 <?php
 
 while($r=mysql_fetch_array($dept))

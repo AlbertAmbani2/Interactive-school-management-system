@@ -1,20 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
--- http://www.phpmyadmin.net
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2021 at 07:45 AM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Feb 01, 2024 at 03:59 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `schoolmsdb`
@@ -26,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE IF NOT EXISTS `admin` (
+CREATE TABLE `admin` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `hiredate` date NOT NULL,
   `address` varchar(30) NOT NULL,
   `sex` varchar(7) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `admin`
@@ -54,11 +55,11 @@ INSERT INTO `admin` (`id`, `name`, `password`, `phone`, `email`, `dob`, `hiredat
 -- Table structure for table `attendance`
 --
 
-CREATE TABLE IF NOT EXISTS `attendance` (
-`id` int(11) NOT NULL,
+CREATE TABLE `attendance` (
+  `id` int(11) NOT NULL,
   `date` date NOT NULL,
   `attendedid` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `attendance`
@@ -86,11 +87,11 @@ INSERT INTO `attendance` (`id`, `date`, `attendedid`) VALUES
 -- Table structure for table `availablecourse`
 --
 
-CREATE TABLE IF NOT EXISTS `availablecourse` (
-`id` int(11) NOT NULL,
+CREATE TABLE `availablecourse` (
+  `id` int(11) NOT NULL,
   `name` varchar(30) NOT NULL,
   `classid` varchar(30) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `availablecourse`
@@ -144,12 +145,12 @@ INSERT INTO `availablecourse` (`id`, `name`, `classid`) VALUES
 -- Table structure for table `class`
 --
 
-CREATE TABLE IF NOT EXISTS `class` (
+CREATE TABLE `class` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `room` varchar(20) NOT NULL,
   `section` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `class`
@@ -181,37 +182,15 @@ INSERT INTO `class` (`id`, `name`, `room`, `section`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `course`
---
-
-CREATE TABLE IF NOT EXISTS `course` (
-  `id` varchar(20) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `teacherid` varchar(20) NOT NULL,
-  `studentid` varchar(20) NOT NULL,
-  `classid` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `course`
---
-
-INSERT INTO `course` (`id`, `name`, `teacherid`, `studentid`, `classid`) VALUES
-('1', 'Bangla 1st', 'te-124-1', 'st-123-1', '1A'),
-('1', 'Bangla 1st', 'te-124-1', 'st-124-1', '1A');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `examschedule`
 --
 
-CREATE TABLE IF NOT EXISTS `examschedule` (
+CREATE TABLE `examschedule` (
   `id` varchar(20) NOT NULL,
   `examdate` date NOT NULL,
   `time` varchar(20) NOT NULL,
   `courseid` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `examschedule`
@@ -228,12 +207,12 @@ INSERT INTO `examschedule` (`id`, `examdate`, `time`, `courseid`) VALUES
 -- Table structure for table `grade`
 --
 
-CREATE TABLE IF NOT EXISTS `grade` (
-`id` int(11) NOT NULL,
+CREATE TABLE `grade` (
+  `id` int(11) NOT NULL,
   `studentid` varchar(20) NOT NULL,
   `grade` varchar(5) NOT NULL,
   `courseid` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `grade`
@@ -253,7 +232,7 @@ INSERT INTO `grade` (`id`, `studentid`, `grade`, `courseid`) VALUES
 -- Table structure for table `parents`
 --
 
-CREATE TABLE IF NOT EXISTS `parents` (
+CREATE TABLE `parents` (
   `id` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `fathername` varchar(20) NOT NULL,
@@ -261,14 +240,14 @@ CREATE TABLE IF NOT EXISTS `parents` (
   `fatherphone` varchar(13) NOT NULL,
   `motherphone` varchar(13) NOT NULL,
   `address` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `parents`
 --
 
 INSERT INTO `parents` (`id`, `password`, `fathername`, `mothername`, `fatherphone`, `motherphone`, `address`) VALUES
-('pa-123-1', '123', 'Eric', 'Sophie', '01711000000', '01711000000', '4286  Raoul Wallenberg Place'),
+('74', 'werf', 'ddswq', 'dqw', '0748315884', '099905396i9', '450-200'),
 ('pa-124-1', '123', 'John', 'Riley', '01724242424', '01924242314', '2549  Simpson Avenue');
 
 -- --------------------------------------------------------
@@ -277,13 +256,13 @@ INSERT INTO `parents` (`id`, `password`, `fathername`, `mothername`, `fatherphon
 -- Table structure for table `payment`
 --
 
-CREATE TABLE IF NOT EXISTS `payment` (
-`id` int(11) NOT NULL,
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
   `studentid` varchar(20) NOT NULL,
   `amount` double NOT NULL,
   `month` varchar(10) NOT NULL,
   `year` varchar(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `payment`
@@ -302,13 +281,13 @@ INSERT INTO `payment` (`id`, `studentid`, `amount`, `month`, `year`) VALUES
 -- Table structure for table `report`
 --
 
-CREATE TABLE IF NOT EXISTS `report` (
-`reportid` int(11) NOT NULL,
+CREATE TABLE `report` (
+  `reportid` int(11) NOT NULL,
   `studentid` varchar(20) NOT NULL,
   `teacherid` varchar(20) NOT NULL,
   `message` varchar(500) NOT NULL,
   `courseid` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `report`
@@ -326,7 +305,7 @@ INSERT INTO `report` (`reportid`, `studentid`, `teacherid`, `message`, `courseid
 -- Table structure for table `staff`
 --
 
-CREATE TABLE IF NOT EXISTS `staff` (
+CREATE TABLE `staff` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -337,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `hiredate` date NOT NULL,
   `address` varchar(30) NOT NULL,
   `salary` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `staff`
@@ -355,7 +334,7 @@ INSERT INTO `staff` (`id`, `name`, `password`, `phone`, `email`, `sex`, `dob`, `
 -- Table structure for table `students`
 --
 
-CREATE TABLE IF NOT EXISTS `students` (
+CREATE TABLE `students` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -367,16 +346,30 @@ CREATE TABLE IF NOT EXISTS `students` (
   `address` varchar(50) NOT NULL,
   `parentid` varchar(20) NOT NULL,
   `classid` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`id`, `name`, `password`, `phone`, `email`, `sex`, `dob`, `addmissiondate`, `address`, `parentid`, `classid`) VALUES
-('st-123-1', 'Wiccan', '123', '9102457890', 'wiccan@gmail.com', 'Male', '1999-10-24', '2011-01-09', '3056  Leisure Lane', 'pa-123-1', '1A'),
+('aD', 'SCS', 'SAD', '0748315884', 'albertambani1@gmail.', 'Male', '0000-00-00', '2024-02-01', '450-200', 'fd', 'dgs'),
 ('st-124-1', 'Paul', '123', '4564564500', 'paul@gmail.com', 'Male', '2000-09-24', '2014-07-02', '1940  Prudence Street', 'pa-123-1', '1A'),
 ('st-125-1', 'Jacob', '123', '8520696964', 'jacodon@gmail.com', 'Male', '2001-12-12', '2014-12-06', '2549  Simpson Avenue', 'pa-124-1', '5A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subject`
+--
+
+CREATE TABLE `subject` (
+  `id` varchar(20) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `teacherid` varchar(20) NOT NULL,
+  `studentid` varchar(20) NOT NULL,
+  `classid` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -384,11 +377,11 @@ INSERT INTO `students` (`id`, `name`, `password`, `phone`, `email`, `sex`, `dob`
 -- Table structure for table `takencoursebyteacher`
 --
 
-CREATE TABLE IF NOT EXISTS `takencoursebyteacher` (
-`id` int(11) NOT NULL,
+CREATE TABLE `takencoursebyteacher` (
+  `id` int(11) NOT NULL,
   `courseid` varchar(20) NOT NULL,
   `teacherid` varchar(20) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `takencoursebyteacher`
@@ -424,7 +417,7 @@ INSERT INTO `takencoursebyteacher` (`id`, `courseid`, `teacherid`) VALUES
 -- Table structure for table `teachers`
 --
 
-CREATE TABLE IF NOT EXISTS `teachers` (
+CREATE TABLE `teachers` (
   `id` varchar(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
@@ -435,16 +428,14 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   `dob` date NOT NULL,
   `hiredate` date NOT NULL,
   `salary` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `teachers`
 --
 
 INSERT INTO `teachers` (`id`, `name`, `password`, `phone`, `email`, `address`, `sex`, `dob`, `hiredate`, `salary`) VALUES
-('te-123-1', 'Liiam', '123', '1247965680', 'liam@gmail.com', '', 'Male', '1990-05-05', '2010-06-21', 36500),
-('te-124-1', 'Robert', '124', '8520000012', 'robertj@gmail,com', '1022  Neuport Lane', 'Male', '1995-12-18', '2015-12-04', 36000),
-('te-125-1', 'James Rhoades', '258', '3214569874', 'rhoadesj@gmail.com', '3464  Straford Park', 'Male', '1998-06-26', '2021-01-06', 21000),
+('FDG', 'WER', 'WD', '0748315884', 'albertambani1@gmail.', ' J JH ', 'Male', '0000-00-00', '2024-02-01', 4434),
 ('te-126-1', 'Maria', '258', '9103674540', 'mariahill@gmail.com', '833  Fulton Street', 'Female', '1996-04-06', '2019-12-24', 39000),
 ('te-127-1', 'Darlene', '123', '1379696969', 'darleeene@gmail.com', '2131  Glory Road', 'Female', '1994-12-25', '2017-05-25', 41000);
 
@@ -454,33 +445,31 @@ INSERT INTO `teachers` (`id`, `name`, `password`, `phone`, `email`, `address`, `
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `userid` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   `usertype` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`userid`, `password`, `usertype`) VALUES
+('74', 'werf', 'parent'),
+('aD', 'SAD', 'student'),
 ('ad-123-0', '123', 'admin'),
 ('ad-123-1', '123', 'admin'),
 ('ad-123-2', '123', 'admin'),
 ('ad-123-3', '123', 'admin'),
-('pa-123-1', '123', 'parent'),
+('FDG', 'WD', 'teacher'),
 ('pa-124-1', '123', 'parent'),
-('st-123-1', '123', 'student'),
 ('st-124-1', '125', 'student'),
 ('st-125-1', '123', 'student'),
 ('sta-123-1', '123', 'staff'),
 ('sta-124-1', '123', 'staff'),
 ('sta-125-1', '123', 'staff'),
 ('sta-126-1', '123', 'staff'),
-('te-123-1', '123', 'teacher'),
-('te-124-1', '124', 'teacher'),
-('te-125-1', '258', 'teacher'),
 ('te-126-1', '258', 'teacher'),
 ('te-127-1', '123', 'teacher');
 
@@ -492,73 +481,73 @@ INSERT INTO `users` (`userid`, `password`, `usertype`) VALUES
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
- ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `attendance`
 --
 ALTER TABLE `attendance`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `availablecourse`
 --
 ALTER TABLE `availablecourse`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `grade`
 --
 ALTER TABLE `grade`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `parents`
 --
 ALTER TABLE `parents`
- ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `report`
 --
 ALTER TABLE `report`
- ADD PRIMARY KEY (`reportid`);
+  ADD PRIMARY KEY (`reportid`);
 
 --
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
- ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
- ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `takencoursebyteacher`
 --
 ALTER TABLE `takencoursebyteacher`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `teachers`
 --
 ALTER TABLE `teachers`
- ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD UNIQUE KEY `userid` (`userid`);
+  ADD UNIQUE KEY `userid` (`userid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -568,32 +557,39 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
 --
 -- AUTO_INCREMENT for table `availablecourse`
 --
 ALTER TABLE `availablecourse`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
 --
 -- AUTO_INCREMENT for table `grade`
 --
 ALTER TABLE `grade`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `report`
 --
 ALTER TABLE `report`
-MODIFY `reportid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `reportid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `takencoursebyteacher`
 --
 ALTER TABLE `takencoursebyteacher`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

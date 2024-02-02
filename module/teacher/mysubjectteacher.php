@@ -3,9 +3,9 @@ include_once('main.php');
  $em = $_REQUEST['cid'];
 
 
-$courseinfo = "SELECT * FROM teachers WHERE id in (select teacherid from course where id='$em' and studentid='$check')";
-$rescou = mysql_query($courseinfo);
-$courseid = "SELECT * FROM class WHERE id in (select classid from course where id='$em' and studentid='$check')";
+$subjectinfo = "SELECT * FROM teachers WHERE id in (select teacherid from subject where id='$em' and studentid='$check')";
+$rescou = mysql_query($subjectinfo);
+$subjectid = "SELECT * FROM class WHERE id in (select classid from subject where id='$em' and studentid='$check')";
 $rescoud = mysql_query($courseid);
 $st=mysql_fetch_array($rescoud);
 

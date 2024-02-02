@@ -20,7 +20,7 @@ include_once('main.php');
 								<a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
 								<a class ="menulista" href="manageParent.php">Manage Parent</a>
 								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="index.php">Course</a>
+								<a class ="menulista" href="index.php">Subject</a>
 								<a class ="menulista" href="index.php">Attendance</a>
 								<a class ="menulista" href="index.php">Exam Schedule</a>
 								<a class ="menulista" href="index.php">Salary</a>
@@ -53,6 +53,14 @@ include_once('main.php');
 </html>
 <?php
 include_once('../../service/mysqlcon.php');
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 if(!empty($_POST['submit'])){
     $Id = $_POST['id'];
     $Name = $_POST['name'];
@@ -62,16 +70,24 @@ if(!empty($_POST['submit'])){
     $gender = $_POST['gender'];
     $DOB = $_POST['dob'];
     $hiredate = $_POST['hiredate'];
-    $stuAddress = $_POST['address'];
+    $Address = $_POST['address'];
     $salary = $_POST['salary'];
-    $image = $_POST['pic'];
-    $uploads_dir = "../images";
+     // Use $_FILES to handle file uploads
+     if ($_FILES['pic']['error'] == UPLOAD_ERR_OK) {
+        $image = $_FILES['pic']['tmp_name'];
+        $uploads_dir = "../images";
+        $destination = "$uploads_dir/$Id.jpg";
+        
+        // Move uploaded file to destination
+        move_uploaded_file($image, $destination);
+    }
     move_uploaded_file($image, "$uploads_dir/$image");
     $sql = "UPDATE teachers SET id='$Id', name='$Name', password='$Password', phone='$Phone', email='$Email', address='$Address', sex='$gender', dob='$DOB', hiredate='$hiredate', salary='$salary' WHERE id='$Id'";
-    $success = mysql_query( $sql,$link );
-    if(!$success) {
-        die('Could not Update data: '.mysql_error());
-    }
+
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+    die('Error in SQL query: ' . mysqli_error($conn));
+}
     echo "Update data successfully\n";
 }
 ?>

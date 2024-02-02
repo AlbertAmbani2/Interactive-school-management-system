@@ -1,10 +1,11 @@
 <?php
 include_once('main.php');
 
-$st=mysql_query("SELECT *  FROM parents WHERE id='$check' ");
-$stinfo=mysql_fetch_array($st);
+$st = mysqli_query($conn, "SELECT * FROM parents WHERE id='$check'");
+$stinfo = mysqli_fetch_array($st);
 
 ?>
+
 <html>
     <head>
 		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">

@@ -49,7 +49,7 @@ if (!isset($loged_user_name)) {
                 <a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
 								<a class ="menulista" href="index.php">Manage Parent</a>
 								<a class ="menulista" href="index.php">Manage Staff</a>
-								<a class ="menulista" href="index.php">Course</a>
+								<a class ="menulista" href="index.php">Subject</a>
 								<a class ="menulista" href="index.php">Attendance</a>
 								<a class ="menulista" href="index.php">Exam Schedule</a>
 								<a class ="menulista" href="index.php">Salary</a>

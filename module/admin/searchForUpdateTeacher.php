@@ -1,6 +1,14 @@
 <?php
 include_once('main.php');
 include_once('../../service/mysqlcon.php');
+// Create connection
+$conn = new mysqli($host, $username, $password, $db_name);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 $searchKey = $_GET['key'];
 
 $string = "<tr>
@@ -16,8 +24,13 @@ $string = "<tr>
     <th>Salary</th>
     </tr>";
 $sql = "SELECT * FROM teachers WHERE id like '$searchKey%' OR name like '$searchKey%';";
-$res = mysql_query($sql);
-while($row = mysql_fetch_array($res)){
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die('Error in SQL query: ' . mysqli_error($conn));
+}
+
+while($row = mysqli_fetch_array($result)){
     $string .= "<tr><td><input value='".$row['id']."'name='id' readonly >".
     "</td><td><input type='text' value='".$row['name']."'name='name'>".
     "</td><td><input type='text' value='".$row['password']."'name='password'>".
