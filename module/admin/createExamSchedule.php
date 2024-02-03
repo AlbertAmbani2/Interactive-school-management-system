@@ -1,66 +1,68 @@
 <?php
 include_once('main.php');
 ?>
-<html>
-    <head>
-		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
-				<script src = "JS/login_logout.js"></script>
-		</head>
-    <body>
-			  <div class="header"><h1>School Management System</h1></div>
-			  <div class="divtopcorner">
-				    <img src="../../source/logo.jpg" height="150" width="150" alt="School Management System"/>
-				</div>
-			<br/><br/>
-				<ul>
-				    <li class="manulist">
-						    <a class ="menulista" href="index.php">Home</a>
-								<a class ="menulista" href="manageStudent.php">Manage Student</a>
-								<a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
-								<a class ="menulista" href="manageParent.php">Manage Parent</a>
-								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="course.php">Subject</a>
-								<a class ="menulista" href="attendance.php">Attendance</a>
-								<a class ="menulista" href="examSchedule.php">Exam Schedule</a>
-								<a class ="menulista" href="salary.php">Salary</a>
-								<a class ="menulista" href="report.php">Report</a>
-								<a class ="menulista" href="payment.php">Payment</a>
-								<div align="center">
-								<h4>Hi!admin <?php echo $check." ";?></h4>
-								    <a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-						    </div>
-						</li>
-				</ul>
-			  <hr/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Your custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JS files -->
+    <script src="JS/login_logout.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
         <center>
             <h2>Exam Schedule List</h2>
             <form action="#" method="post">
-              <table cellpadding="6">
-                  <tr>
-                      <td>Exam Schedule Id:</td>
-                      <td><input type="text" name="id" placeholder="Exam Schedule ID"></td>
-                  </tr>
-                  <tr>
-                      <td>Exam Date:</td>
-                      <td><input type="date" name="examDate" placeholder="Exam Date"></td>
-                  </tr>
-                  <tr>
-                      <td>Exam Time:</td>
-                      <td><input type="text" name="examTime" placeholder="Exam Time(H:M - H:M)"></td>
-                  </tr>
-                  <tr>
-                      <td>Subject ID:</td>
-                      <td><input type="text" name="courseId" placeholder="Subject ID"></td>
-                  </tr>
-                  <tr>
-                      <td></td>
-                      <td><input type="submit" name="submit"value="Submit"></td>
-                  </tr>
-              </table>
+                <table class="table">
+                    <tr>
+                        <td>Exam Schedule Id:</td>
+                        <td><input type="text" class="form-control" name="id" placeholder="Exam Schedule ID"></td>
+                    </tr>
+                    <tr>
+                        <td>Exam Date:</td>
+                        <td><input type="date" class="form-control" name="examDate" placeholder="Exam Date"></td>
+                    </tr>
+                    <tr>
+                        <td>Exam Time:</td>
+                        <td><input type="text" class="form-control" name="examTime" placeholder="Exam Time(H:M - H:M)"></td>
+                    </tr>
+                    <tr>
+                        <td>Subject ID:</td>
+                        <td><input type="text" class="form-control" name="courseId" placeholder="Subject ID"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-primary" name="submit" value="Submit"></td>
+                    </tr>
+                </table>
             </form>
         </center>
-		</body>
+    </div>
+</body>
 </html>
+
 <?php
 include_once('../../service/mysqlcon.php');
 

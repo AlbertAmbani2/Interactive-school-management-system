@@ -1,3 +1,16 @@
+/* Custom CSS to reduce margin-bottom of h1 */
+.header h1 {
+  color: blue;
+  padding-bottom: 10px;
+  margin-bottom: 0px; /* Adjust this value as needed */
+}
+
+.navbar-nav {
+  width: 100%;
+  display: inline;
+  justify-content: space-between;
+}
+
 .divtopcorner{
     position:absolute;
     top:0px;

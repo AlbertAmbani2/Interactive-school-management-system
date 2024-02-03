@@ -29,66 +29,74 @@ if (!isset($loged_user_name)) {
     exit(); 
 }
 ?>
-<html>
-    <head>
-		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
-				<script src = "JS/login_logout.js"></script>
-        <script src = "JS/currentDate.js"></script>
-        <script src = "JS/getClassName.js"></script>
-        <script src = "JS/getSubjectIdAndNAme.js"></script>
-		</head>
-    <body onload="getClassNameAndId();">
-			  <div class="header"><h1>School Management System</h1></div>
-			  <div class="divtopcorner">
-				    <img src="../../source/logo.jpg" height="150" width="150" alt="School Management System"/>
-				</div>
-			<br/><br/>
-				<ul>
-				    <li class="manulist">
-						    <a class ="menulista" href="index.php">Home</a>
-                <a class ="menulista" href="manageStudent.php">Manage Student</a>
-                <a class ="menulista" href="manageTeacher.php">Manage Teacher</a>
-								<a class ="menulista" href="manageParent.php">Manage Parent</a>
-								<a class ="menulista" href="manageStaff.php">Manage Staff</a>
-								<a class ="menulista" href="subject.php">Subject</a>
-								<a class ="menulista" href="attendance.php">Attendance</a>
-								<a class ="menulista" href="index.php">Exam Schedule</a>
-								<a class ="menulista" href="index.php">Salary</a>
-								<a class ="menulista" href="index.php">Report</a>
-								<a class ="menulista" href="index.php">Payment</a>
-								<div align="center">
-								<h4>Hi!admin <?php echo $check." ";?></h4>
-								<a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-						</div>
-						</li>
-				</ul>
-			  <hr/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Your custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JS files -->
+    <script src="JS/login_logout.js"></script>
+    <script src="JS/currentDate.js"></script>
+    <script src="JS/getClassName.js"></script>
+    <script src="JS/getSubjectIdAndNAme.js"></script>
+</head>
+<body onload="getClassNameAndId();">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
         <center>
-                    
-        <h2>Subject Registration For Student.</h2><hr/>
+            <h2>Subject Registration For Student.</h2><hr/>
             <form action="#" method="post">
-                <table cellpadding="6">
+                <table class="table">
                     <tr>
                         <td>Class ID:</td>
-                        <td><select id="className" onchange="getSubjectNameAndId();"></select></td>
+                        <td>
+                            <select id="className" class="form-control" onchange="getSubjectNameAndId();"></select>
+                        </td>
                     </tr>
                     <tr>
                         <td>Subject Name:</td>
-                        <td><select id="subjectName" onchange="setSubjectId()"></select></td>
+                        <td>
+                            <select id="subjectName" class="form-control" onchange="setSubjectId()"></select>
+                        </td>
                     </tr>
                     <tr>
-                        <td><input id="subjectId"type="hidden" name="name" placeholder="Enter Name"></td>
+                        <td><input id="subjectId" type="hidden" name="name" placeholder="Enter Name"></td>
                     </tr>
                     <tr>
                         <td>Teacher ID:</td>
-                        <td><select id="teacherId" onchange=""></select></td>
+                        <td>
+                            <select id="teacherId" class="form-control"></select>
+                        </td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><input type="button" name="submit"value="Submit" onclick="getAllSubjectStudentAndSubmit();"></td>
+                        <td>
+                            <input type="button" class="btn btn-primary" name="submit" value="Submit" onclick="getAllSubjectStudentAndSubmit();">
+                        </td>
                     </tr>
                 </table>
             </form>
         </center>
-		</body>
+    </div>
+</body>
 </html>

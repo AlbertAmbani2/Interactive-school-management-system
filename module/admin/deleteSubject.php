@@ -11,29 +11,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM teachers;";
+$sql = "SELECT * FROM subject;";
 $stmt = mysqli_prepare($conn, $sql);
 
 if ($stmt === false) {
-  die("Error in SQL query: " . mysqli_error($conn));
+    die("Error in SQL query: " . mysqli_error($conn));
 }
 
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 $string = "";
-$images_dir = "../images/";
-
 while($row =  mysqli_fetch_array($result)){
     $picname = $row['id'];
-    $string .= "<form action='deleteTeacherTableData.php' method='post'>".
+    $string .= "<form action='deleteCourseTableData.php' method='post'>".
     "<tr><td><input type='submit' name='submit' value='Delete'></td>".
     '<input type="hidden" value="'.$row['id'].'" name="id" />'.
-    '<td>'.$row['id'].'</td><td>'.$row['name'].
-    '</td><td>'.$row['phone'].'</td><td>'.$row['email'].'</td><td>'.$row['address'].
-    '</td><td>'.$row['sex'].'</td><td>'.$row['dob'].'</td><td>'.$row['hiredate'].
-    '</td><td>'.$row['salary'].
-    "</td><td><img src='".$images_dir.$picname.".jpg' alt='$picname' width='150' height='150'>".'</td></tr></form>';
+    '<td>'.$row['name'].'</td><td>'.$row['teacherid'].
+    '</td><td>'.$row['studentid'].'</td><td>'.$row['classid'].'</td></tr></form>';
 }
 ?>
 <!DOCTYPE html>
@@ -66,28 +61,18 @@ while($row =  mysqli_fetch_array($result)){
             </li>
         </ul>
     </nav>
-
+    <div class="container">
         <center>
-            <h2>Delete Teacher</h2><hr/>
-            <table class="table">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Select Delete</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Gender</th>
-                        <th>DOB</th>
-                        <th>Hire Date</th>
-                        <th>Salary</th>
-                        <th>Picture</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php echo $string;?>
-                </tbody>
+            <h2>Delete Subject</h2><hr/>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Select For Delete</th>
+                    <th>Name</th>
+                    <th>Teacher Id</th>
+                    <th>Student Id</th>
+                    <th>Class Id</th>
+                </tr>
+                <?php echo $string;?>
             </table>
         </center>
     </div>

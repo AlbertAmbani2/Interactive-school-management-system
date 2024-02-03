@@ -1,6 +1,6 @@
 **Database Name: schoolmsdb**
 
-**Developed by Sagor Mollik**
+**Developed by Albert Ambani**
 
 **Recommended PHP Version 5.6.3**
 
