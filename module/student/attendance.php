@@ -2,65 +2,77 @@
 include_once('main.php');
 
 ?>
-<html>
-    <head>
-		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
-			<script type="text/javascript" src="jquery-1.12.3.js"></script>
-			<script type="text/javascript" src="studentAttendance.js"></script>
-			<script src = "JS/login_logout.js"></script>
-			
-				
-	            
-		</head>
-    <body  onload="ajaxRequestToGetAttendancePresentThisMonth();">
-             		 
-			 <div class="header"><h1>School Management System</h1></div>
-			  <div class="divtopcorner">
-				    <img src="../../source/logo.jpg" height="150" width="150" alt="School Management System"/>
-				</div>
-			<br/><br/>
-				<ul>
-				    <li class="manulist" >
-						   <a class ="menulista" href="index.php">Home</a>
-						        <a class ="menulista" href="modify.php">Change Password</a>
-								<a class ="menulista" href="course.php">My Course And Result</a>
-								<a class ="menulista" href="exam.php">My Exam Schedule</a>
-								<a class ="menulista" href="attendance.php">My Attendance</a>
-								
-								<div align="center">
-								<h4>Hi!Student <?php echo $check." ";?> </h4>
-								<a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-						</div>
-						 
-				    
-			
-						</li>
-				</ul>
-			  <hr/>
-			  <div align="center" style="background-color:orange;">
-	
-Select Attendance that you are present: Current Month:<input type="radio"  onclick="ajaxRequestToGetAttendancePresentThisMonth();"   value="thismonth" id="present" name="present" checked="checked"/> ALL : <input type="radio" onclick="ajaxRequestToGetAttendancePresentAll();" value="all" id="present" name="present"/>
-</div>	
-<hr/>
-<div align="center" >
-<table id="mypresent" border="1">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
 
-</table>
-</div>
-<hr/>
-<div align="center" style="background-color:gray;">
-	
-Select Attendance that you are absent : Current Month:<input type="radio"  onclick="ajaxRequestToGetAttendanceAbsentThisMonth();"   value="thismonth" id="absent" name="absent" checked="checked"/> ALL : <input type="radio" onclick="ajaxRequestToGetAttendanceAbsentAll();" value="all" id="absent" name="absent"/>
-</div>	
-<hr/>
-<div align="center" >
-<table id="myabsent" border="1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-</table>
-</div>
+    <!-- Your custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
 
-							
-							
-		</body>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JS files -->
+    <script type="text/javascript" src="jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="studentAttendance.js"></script>
+    <script src="JS/login_logout.js"></script>
+
+    <style>
+        input {
+            text-align: center;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center mt-5">
+                <div align="center" style="background-color:orange;">
+                    Select Attendance that you are present: Current Month:
+                    <input type="radio" onclick="ajaxRequestToGetAttendancePresentThisMonth();" value="thismonth" id="present" name="present" checked="checked"/>
+                    ALL:
+                    <input type="radio" onclick="ajaxRequestToGetAttendancePresentAll();" value="all" id="present" name="present"/>
+                </div>
+                <hr/>
+                <div align="center">
+                    <table id="mypresent" class="table" border="1"></table>
+                </div>
+                <hr/>
+                <div align="center" style="background-color:gray;">
+                    Select Attendance that you are absent: Current Month:
+                    <input type="radio" onclick="ajaxRequestToGetAttendanceAbsentThisMonth();" value="thismonth" id="absent" name="absent" checked="checked"/>
+                    ALL:
+                    <input type="radio" onclick="ajaxRequestToGetAttendanceAbsentAll();" value="all" id="absent" name="absent"/>
+                </div>
+                <hr/>
+                <div align="center">
+                    <table id="myabsent" class="table" border="1"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 </html>
+
 

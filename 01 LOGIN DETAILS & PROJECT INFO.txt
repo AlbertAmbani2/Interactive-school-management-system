@@ -20,8 +20,8 @@ Password: @benard
 
 **Teacher Login Details*********************************************************************8
       **********************************************************
-Username: te-124-1
-Password: 124
+Username: te-126-1
+Password: @126
 
 **Staff Login Details**
 

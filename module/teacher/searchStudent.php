@@ -1,17 +1,50 @@
 <?php
 include_once('main.php');
-include_once('index.php');
+
 include_once('../../service/mysqlcon.php');
 ?>
-<html>
-<div align="center">
-<form action="#" method="GET">
 
-key: <input type="text"  name='key' placeholder="st-XXX-X"/>
-<input type="submit"  name='submit' value="submit"/>
-</form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-6 text-center">
+                <form action="#" method="GET">
+                    <div class="form-group">
+                        <label for="key">Key:</label>
+                        <input type="text" class="form-control" name="key" id="key" placeholder="st-XXX-X" />
+                    </div>
+                    <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
 </html>
+
 <table border="2" align="center">
 <?php
 if(!empty($_GET['submit'])){

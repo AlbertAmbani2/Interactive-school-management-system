@@ -34,62 +34,72 @@ $conn->close();
 
 ?>
 
-<html>
-    <head>
-		    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
-				<script src = "JS/login_logout.js"></script>
-				<script src = "JS/modifyValidate.js"></script>
-		</head>
-		<style>
-		input {
-    text-align: center;
-    background-color: gray;
-           }
-		
-		</style>
-    <body>
-             		 
-			 <div class="header"><h1>School Management System</h1></div>
-			  <div class="divtopcorner">
-				    <img src="../../source/logo.jpg" height="150" width="150" alt="School Management System"/>
-				</div>
-			<br/><br/>
-				<ul>
-				       <li class="manulist" >
-						  <a class ="menulista" href="index.php">Home</a>
-						        <a class ="menulista" href="modify.php">Change Password</a>
-								<a class ="menulista" href="course.php">My Subject And Result</a>
-								<a class ="menulista" href="exam.php">My Exam Schedule</a>
-								<a class ="menulista" href="attendance.php">My Attendance</a>
-								
-								<div align="center">
-								<h4>Hi!Student <?php echo $check." ";?> </h4>
-								<a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-						</div>
-						 
-				    
-			
-						</li>
-				</ul>
-			  <hr/>
-			  
-			  <div align="center" class="mod">
-			  	<h1>Change Password</h1>
-				
-				<form  onsubmit="return modifyValidate();" action="modifysave.php" method="post">
-			  <table border="1">
-			  <tr>
-			  <th>Student Password</th>
-			 </tr>
-			  <tr>
-			  
-			  <td><input type="text"  id="password" name="password" value="<?php echo $stinfo['password'];?>"/></td>
-			</table>
-			  <br/>
-			  <input type="submit" value="Change Password"/>
-			  </form>
-								
-								</div>
-		</body>
-</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Your custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JS files -->
+    <script src="JS/login_logout.js"></script>
+    <script src="JS/modifyValidate.js"></script>
+
+    <style>
+        input {
+            text-align: center;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center mt-5">
+                <h1>Change Password</h1>
+                <form onsubmit="return modifyValidate();" action="modifysave.php" method="post">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Student Password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" id="password" name="password" value="<?php echo $stinfo['password']; ?>"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <input type="submit" class="btn btn-primary" value="Change Password"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -14,6 +14,9 @@ include_once('main.php');
 		.header h1 {
 			color: blue;
 		}
+        h4{
+            color: blue;
+        }
     /* Add hover background color to navbar items */
     .navbar-nav .nav-item:hover {
         background-color: #e9ecef; /* Change this color to your preferred hover color */
@@ -46,6 +49,7 @@ include_once('main.php');
                     <img src="../../source/goodtimes.jpg" height="70" width="70" alt="School Management System" />
                 </a>
                 <h1>School Management System</h1>
+                
             </div>
         </div>
 
@@ -158,12 +162,16 @@ include_once('main.php');
         </div>
 
         <div class="row">
-            <!-- Hi!admin and Logout -->
-            <div class="col-12 text-center">
-                <h4>Hi!admin <?php echo $check . " "; ?></h4>
-                <a class="nav-link" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-            </div>
-        </div>
+           <!-- Hi!admin and Logout -->
+           <div class="col-12 text-center">
+            <h4>Hi!admin <?php echo $loged_user_name . " "; ?></h4>
+            <a class="btn btn-primary" href="logout.php">
+                <?php echo "Logout";?>
+            </a>
+          </div>
+
+      </div>
+
 
     </div>
     <hr />

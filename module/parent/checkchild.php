@@ -2,56 +2,68 @@
 include_once('main.php');
 ?>
 
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
-        <script type="text/javascript" src="jquery-1.12.3.js"></script>
-        <script type="text/javascript" src="Attendance.js"></script>
-        <script src="JS/login_logout.js"></script>
-    </head>
-    <body onload="ajaxRequestToGetChildInfo();">
-        <div class="header"><h1>School Management System</h1></div>
-        <div class="divtopcorner">
-            <img src="../../source/logo.jpg" height="150" width="150" alt="School Management System"/>
-        </div>
-        <br/><br/>
-        <ul>
-            <li class="manulist" >
-                <a class ="menulista" href="index.php">Home</a>
-                <a class ="menulista" href="modify.php">Change Password</a>
-                <a class ="menulista" href="checkchild.php">Childs Information</a>
-                <a class ="menulista" href="childcourse.php">Childs Course And Result</a>
-                <a class ="menulista" href="childpayment.php">Child Payments</a>
-                <a class ="menulista" href="childattendance.php">Childs Attendance</a>
-                <a class ="menulista" href="childreport.php">Childs Report</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management System</title>
 
-                <div align="center">
-                    <h4>Hi!Parents <?php echo $check." ";?> </h4>
-                    <a class ="menulista" href="logout.php" onmouseover="changemouseover(this);" onmouseout="changemouseout(this,'<?php echo ucfirst($loged_user_name);?>');"><?php echo "Logout";?></a>
-                </div>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Your custom CSS file -->
+    <link rel="stylesheet" type="text/css" href="../../source/CSS/style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script type="text/javascript" src="jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="Attendance.js"></script>
+    <script src="JS/login_logout.js"></script>
+</head>
+<body onload="ajaxRequestToGetChildInfo();">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.php">Return Home</a>
             </li>
         </ul>
-        <hr/>
-        <div align="center" style="background-color:orange;">
-            Select your Child:
-            <select id="childid" name="childid" onchange="ajaxRequestToGetChildInfo();" style="background-color:white;">
-                <?php
-                    $classget = "SELECT  * FROM students where parentid='$check'";
-                    $res= mysqli_query($conn, $classget);
+    </nav>
 
-                    while($cln=mysqli_fetch_array($res)) {
-                        echo '<option value="', $cln['id'], '" >', $cln['name'], '</option>';
-                    }
-                ?>
-            </select>
-            <hr/>
-        </div>
-        <hr/>
-        <div align="center" >
-            <table id="mychild" border="1">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 text-center" style="background-color: light;">
+                Select your Child:
+                <select id="childid" name="childid" onchange="ajaxRequestToGetChildInfo();" class="form-control">
+                    <?php
+                        $classget = "SELECT * FROM students where parentid='$check'";
+                        $res = mysqli_query($conn, $classget);
 
-            </table>
+                        while ($cln = mysqli_fetch_array($res)) {
+                            echo '<option value="', $cln['id'], '" >', $cln['name'], '</option>';
+                        }
+                    ?>
+                </select>
+                
+            </div>
         </div>
-        <hr/>
-    </body>
+
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <table id="mychild" class="table table-bordered">
+                    <!-- Your table content will be dynamically populated -->
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
 </html>
