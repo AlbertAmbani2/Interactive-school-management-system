@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2024 at 03:59 PM
+-- Generation Time: Feb 04, 2024 at 04:52 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -45,7 +45,7 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `password`, `phone`, `email`, `dob`, `hiredate`, `address`, `sex`) VALUES
 ('ad-123-0', 'Christen', '123', '2587416969', 'christen@example.com', '1993-11-20', '2016-01-01', 'US, Blkr St', 'female'),
-('ad-123-1', 'Harry Den', '123', '7531596969', 'harryden@gmail.com', '1995-09-22', '2018-01-05', 'US, Fairview Drive', 'Male'),
+('ad-123-1', 'Albert Ambani', '123', '748315884', 'albertambani1@gmail.', '1999-10-20', '2018-01-05', 'Kenya, Nairobo Drive', 'Male'),
 ('ad-123-2', 'Bucky Barnes', '123', '1969735220', 'barsmine@gmail.com', '1994-04-02', '2020-12-24', 'US, DownSt 12', 'Male'),
 ('ad-123-3', 'Steephen', '123', '9745452220', 'stephen@gmail.com', '1991-05-02', '2014-04-24', 'AU, Parmmiza Rd', 'Male');
 
@@ -188,7 +188,7 @@ INSERT INTO `class` (`id`, `name`, `room`, `section`) VALUES
 CREATE TABLE `examschedule` (
   `id` varchar(20) NOT NULL,
   `examdate` date NOT NULL,
-  `time` varchar(20) NOT NULL,
+  `examTime` varchar(255) DEFAULT NULL,
   `courseid` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -196,10 +196,18 @@ CREATE TABLE `examschedule` (
 -- Dumping data for table `examschedule`
 --
 
-INSERT INTO `examschedule` (`id`, `examdate`, `time`, `courseid`) VALUES
+INSERT INTO `examschedule` (`id`, `examdate`, `examTime`, `courseid`) VALUES
 ('145', '2016-05-06', '2:00-4:00', '1'),
 ('sh-10', '2021-04-06', '10:00 - 12:30', '4'),
-('sh-20', '2021-04-06', '01:00 - 03:00', '2');
+('sh-20', '2021-04-06', '01:00 - 03:00', '2'),
+('', '0000-00-00', '', ''),
+('', '0000-00-00', '', ''),
+('', '0000-00-00', '', ''),
+('aSDaa', '0000-00-00', 'adAS', 'AADS'),
+('aSDaa', '0000-00-00', 'adAS', 'AADS'),
+('0001', '2024-02-05', '08:00', 'sci'),
+('001', '2024-02-05', '08:00', 'sci206'),
+('588041', '2024-02-15', '08:00A.M', '05');
 
 -- --------------------------------------------------------
 
@@ -247,8 +255,11 @@ CREATE TABLE `parents` (
 --
 
 INSERT INTO `parents` (`id`, `password`, `fathername`, `mothername`, `fatherphone`, `motherphone`, `address`) VALUES
-('74', 'werf', 'ddswq', 'dqw', '0748315884', '099905396i9', '450-200'),
-('pa-124-1', '123', 'John', 'Riley', '01724242424', '01924242314', '2549  Simpson Avenue');
+('pa-124-1', '123', 'John', 'Riley', '01724242424', '01924242314', '2549  Simpson Avenue'),
+('pa-125-1', '@125', 'Reuben Makanga', 'Clara Wanjiku', '0732019200', '0722019200', 'Metero street'),
+('pa-126-1', '@126', 'Kelvin Wamunyu ', 'Mitchel Muthoni Kama', '0774201920', '0703162021', 'Makwa, street'),
+('pa-127-1', '@127', 'Lucky Ndungu Kahiro', 'Stella Wangui Mwangi', '0736778346', '0746820230', 'gatukuyu'),
+('pa-128-1', '@128', 'Onesmus Mwenja ', 'Annabel Kiende ', '0736778346', '0748162021', 'gatukuyu');
 
 -- --------------------------------------------------------
 
@@ -353,9 +364,14 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `name`, `password`, `phone`, `email`, `sex`, `dob`, `addmissiondate`, `address`, `parentid`, `classid`) VALUES
-('aD', 'SCS', 'SAD', '0748315884', 'albertambani1@gmail.', 'Male', '0000-00-00', '2024-02-01', '450-200', 'fd', 'dgs'),
-('st-124-1', 'Paul', '123', '4564564500', 'paul@gmail.com', 'Male', '2000-09-24', '2014-07-02', '1940  Prudence Street', 'pa-123-1', '1A'),
-('st-125-1', 'Jacob', '123', '8520696964', 'jacodon@gmail.com', 'Male', '2001-12-12', '2014-12-06', '2549  Simpson Avenue', 'pa-124-1', '5A');
+('st-121-1', 'Grace Wandia', '@121', '0739920210', 'gracew@gmail.com', 'Female', '2012-02-10', '2024-02-04', 'gatukuyu', '3812021', '4'),
+('st-122-1', 'Geoffrey Kamau ', '@122', '0745220230', 'geoffreykk@gmail.com', 'Male', '2010-01-05', '2024-02-04', 'gatukuyu', '3622021', '7'),
+('st-123-1', 'Promise Kihenjo', '@123', '0736220210', 'promiskhj@gmail.com', 'Female', '2014-01-05', '2024-02-04', 'Mang\'u', '4432022', 'PP1'),
+('st-124-1', 'Melvin Njuguna', '4312022', '0745520230', 'melviznjn@gmail.com', 'Male', '2018-06-05', '2024-02-04', 'Thika', '4302022', 'PP2'),
+('st-125-1', 'Samuel Mburu', '@125', '0736220210', 'samuelmm1@gmail.com', 'Male', '2018-10-05', '2024-02-04', 'Kiambu', '3572021', 'PP2'),
+('st-126-1', 'Benard Mutiso', '@benard', '0736778346', 'bernardm@gmail.com', 'Male', '2012-02-10', '2024-02-02', 'gatukuyu', '2345763', '7'),
+('st-127-1', 'Loise Nyambura ', '@127', '0740520210', 'loisenyambuu@gmail.c', 'Female', '2015-10-05', '2024-02-04', 'Makwa', '3772021', '5'),
+('st-128-1', 'Rian Mwai ', '@128', '0736220210', 'rianmwas@gmail.com', 'Male', '2016-05-16', '2024-02-04', 'Murang\'a', '3572021', '1');
 
 -- --------------------------------------------------------
 
@@ -435,9 +451,11 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`id`, `name`, `password`, `phone`, `email`, `address`, `sex`, `dob`, `hiredate`, `salary`) VALUES
-('FDG', 'WER', 'WD', '0748315884', 'albertambani1@gmail.', ' J JH ', 'Male', '0000-00-00', '2024-02-01', 4434),
-('te-126-1', 'Maria', '258', '9103674540', 'mariahill@gmail.com', '833  Fulton Street', 'Female', '1996-04-06', '2019-12-24', 39000),
-('te-127-1', 'Darlene', '123', '1379696969', 'darleeene@gmail.com', '2131  Glory Road', 'Female', '1994-12-25', '2017-05-25', 41000);
+('te-124-1', 'Moreen Chepchumba', '@124', '0746820230', 'moreenchep04@gmail.c', 'Metero street', 'Female', '1987-07-09', '2024-02-04', 20000),
+('te-125-1', 'Edwin Mbuthia', '@125', '0701000000', 'eduurike@gmail.com', 'Kamwangi, backstreet', 'Male', '1998-02-10', '2024-02-04', 15000),
+('te-126-1', 'Maria Njoroge', '@126', '0710367454', 'mariahill@gmail.com', '833  lesotho Street', 'Female', '1996-04-06', '2019-12-24', 39000),
+('te-127-1', 'Darlene Wambua', '@127', '0796969690', 'darleeene@gmail.com', '2131  Glory Road', 'Female', '1994-12-25', '2017-05-25', 41000),
+('te-128-1', 'Benson Mukolwe', '@128', '0755201910', 'benson001@gmail.com', 'Mulwa, road', 'Male', '1992-02-10', '2024-02-04', 28000);
 
 -- --------------------------------------------------------
 
@@ -456,22 +474,32 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userid`, `password`, `usertype`) VALUES
-('74', 'werf', 'parent'),
-('aD', 'SAD', 'student'),
 ('ad-123-0', '123', 'admin'),
 ('ad-123-1', '123', 'admin'),
 ('ad-123-2', '123', 'admin'),
 ('ad-123-3', '123', 'admin'),
-('FDG', 'WD', 'teacher'),
 ('pa-124-1', '123', 'parent'),
-('st-124-1', '125', 'student'),
-('st-125-1', '123', 'student'),
+('pa-125-1', '@125', 'parent'),
+('pa-126-1', '@126', 'parent'),
+('pa-127-1', '@127', 'parent'),
+('pa-128-1', '@128', 'parent'),
+('st-121-1', '@121', 'student'),
+('st-122-1', '@122', 'student'),
+('st-123-1', '@123', 'student'),
+('st-124-1', '4312022', 'student'),
+('st-125-1', '@125', 'student'),
+('st-126-1', '@benard', 'student'),
+('st-127-1', '@127', 'student'),
+('st-128-1', '@128', 'student'),
 ('sta-123-1', '123', 'staff'),
 ('sta-124-1', '123', 'staff'),
 ('sta-125-1', '123', 'staff'),
 ('sta-126-1', '123', 'staff'),
+('te-124-1', '@124', 'teacher'),
+('te-125-1', '@125', 'teacher'),
 ('te-126-1', '258', 'teacher'),
-('te-127-1', '123', 'teacher');
+('te-127-1', '123', 'teacher'),
+('te-128-1', '@128', 'teacher');
 
 --
 -- Indexes for dumped tables
